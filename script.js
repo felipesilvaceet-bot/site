@@ -6,16 +6,16 @@
    Categorias: evento (aniversários e festas) e esporte
    ============================================================ */
 const photos = [
-  { s: "img/evento-01.jpg",  t: "Hora dos parabéns",  c: "evento",  r: "tall"   },
-  { s: "img/esporte-01.jpg", t: "Arrancada",          c: "esporte", r: "wide"   },
-  { s: "img/evento-02.jpg",  t: "Soprando as velas",  c: "evento",  r: "square" },
+  { s: "img/evento-01.jpg",  t: "Brincando na piscina",  c: "evento",  r: "tall"   },
+  { s: "img/esporte-01.jpg", t: "Falta",          c: "esporte", r: "wide"   },
+  { s: "img/evento-02.jpg",  t: "Pula-Pula",  c: "evento",  r: "square" },
   { s: "img/esporte-02.jpg", t: "Lance decisivo",     c: "esporte", r: "tall"   },
-  { s: "img/esporte-03.jpg", t: "Torcida em festa",   c: "esporte", r: "square" },
-  { s: "img/evento-03.jpg",  t: "Alegria em família", c: "evento",  r: "wide"   },
-  { s: "img/esporte-04.jpg", t: "Comemoração do gol", c: "esporte", r: "wide"   },
-  { s: "img/evento-04.jpg",  t: "Festa infantil",     c: "evento",  r: "tall"   },
-  { s: "img/esporte-05.jpg", t: "Disputa de bola",    c: "esporte", r: "tall"   },
-  { s: "img/esporte-06.jpg", t: "Fim de jogo",        c: "esporte", r: "wide"   }
+  { s: "img/esporte-03.jpg", t: "Defesa",   c: "esporte", r: "square" },
+  { s: "img/evento-03.jpg",  t: "Balão com idade", c: "evento",  r: "wide"   },
+  { s: "img/esporte-04.jpg", t: "Arbitragem", c: "esporte", r: "wide"   },
+  { s: "img/evento-04.jpg",  t: "Festa fumaça",     c: "evento",  r: "tall"   },
+  { s: "img/esporte-05.jpg", t: "Tiro de escanteio",    c: "esporte", r: "tall"   },
+  { s: "img/esporte-06.jpg", t: "Fitdance",        c: "esporte", r: "wide"   }
 ];
 
 const gallery = document.getElementById("gallery");
