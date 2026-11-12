@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeo & edição — Felipe Moreira</title>
+<meta name="description" content="Vídeos e edições feitos por Felipe Moreira: aftermovies, highlights de jogos, motion e tratamento de imagem.">
+<link rel="icon" href="avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="paginas.css">
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html#inicio" class="brand">Felipe <em>Moreira</em></a>
+  <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  <nav id="menu">
+    <a href="index.html#sobre">Sobre</a>
+    <a href="index.html#portfolio">Portfólio</a>
+    <a href="index.html#coberturas">Coberturas</a>
+    <a href="index.html#servicos">Além da Foto</a>
+    <a href="index.html#ferramentas">Ferramentas</a>
+    <a href="index.html#contato" class="cta">Contato</a>
+  </nav>
+</header>
+
+<main>
+<section class="section sub">
+  <a class="back" href="index.html#servicos">← Voltar ao portfólio</a>
+  <p class="eyebrow">Além da foto</p>
+  <h1 class="sub-title">Vídeo & <em>edição</em></h1>
+  <p class="lead">Vídeos curtos, aftermovies de festas e jogos, correção de cor e tratamento de imagem. Tudo editado por mim.</p>
+</section>
+
+<section class="section" style="padding-top:2rem">
+  <div class="head reveal"><p class="eyebrow">Vídeos</p><h2>Aftermovies, highlights e motion</h2></div>
+  <div id="videos" class="vgrid"></div>
+</section>
+
+<section class="section" style="padding-top:2rem">
+  <div class="head reveal"><p class="eyebrow">Tratamento de imagem</p><h2>Antes e depois</h2></div>
+  <div id="edicoes" class="bagrid"></div>
+</section>
+</main>
+
+<footer>© <span id="year"></span> Felipe Moreira · Todos os direitos reservados</footer>
+
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Reprodução do vídeo">
+  <button class="lb-close" aria-label="Fechar">×</button>
+  <figure><div id="lb-media"></div><figcaption id="lb-cap"></figcaption></figure>
+</div>
+
+<script src="paginas.js"></script>
+<script>
+/* ============================================================
+   SEUS VÍDEOS: coloque os arquivos na pasta "videos/" e ajuste a lista.
+   t = título | d = descrição | tag = categoria | src = arquivo .mp4
+   poster = imagem de capa (opcional) | yt = ID de vídeo do YouTube (opcional,
+   use no lugar de src). Sem arquivo, aparece apenas um bloco colorido.
+   ============================================================ */
+const videos = [
+  { t: "Aftermovie de aniversário", d: "A festa em poucos segundos, com trilha, ritmo e correção de cor.", tag: "Aniversário", src: "videos/aftermovie-01.mp4", poster: "videos/aftermovie-01.jpg" },
+  { t: "Highlights de jogo",        d: "Os melhores lances da partida, editados com cortes rápidos.",       tag: "Esporte",     src: "videos/highlights-01.mp4", poster: "videos/highlights-01.jpg" },
+  { t: "Vídeo do campeonato",       d: "Abertura, jogos e premiação em uma narrativa só.",                   tag: "Esporte",     src: "videos/campeonato-01.mp4", poster: "videos/campeonato-01.jpg" },
+  { t: "Convite animado",           d: "Animação para convites e divulgação nas redes sociais.",             tag: "Motion",      src: "videos/convite-01.mp4",    poster: "videos/convite-01.jpg" }
+];
+
+/* ANTES E DEPOIS: fotos tratadas por mim (pasta "edicoes/") */
+const edicoes = [
+  { t: "Festa ao ar livre", d: "Cor, contraste e luz ajustados no Lightroom.", antes: "edicoes/foto-01-antes.jpg", depois: "edicoes/foto-01-depois.jpg" },
+  { t: "Lance em quadra",   d: "Tratamento de pele, nitidez e fundo.",         antes: "edicoes/foto-02-antes.jpg", depois: "edicoes/foto-02-depois.jpg" }
+];
+
+const lightbox = document.getElementById("lightbox"), lbMedia = document.getElementById("lb-media"), lbCap = document.getElementById("lb-cap");
+const grid = document.getElementById("videos");
+
+videos.forEach((v, n) => {
+  const hue = (n * 60 + 20) % 360;
+  const b = document.createElement("button");
+  b.className = "vcard"; b.style.animationDelay = n * 60 + "ms";
+  b.setAttribute("aria-label", "Assistir: " + v.t);
+  b.innerHTML = `<div class="vthumb" style="background-image:url('${v.poster || ""}'),linear-gradient(145deg,hsl(${hue} 32% 24%),hsl(${(hue + 40) % 360} 40% 10%))"><span class="play"></span></div>
+    <div class="vinfo"><span class="tag"></span><h3></h3><p></p></div>`;
+  b.querySelector(".tag").textContent = v.tag; b.querySelector("h3").textContent = v.t; b.querySelector("p").textContent = v.d;
+  b.onclick = () => abrir(v);
+  grid.append(b);
+});
+
+function abrir(v) {
+  lbMedia.innerHTML = "";
+  let el;
+  if (v.yt) {
+    el = document.createElement("iframe");
+    el.src = "https://www.youtube.com/embed/" + v.yt + "?autoplay=1"; el.allow = "autoplay; encrypted-media; fullscreen"; el.title = v.t;
+  } else {
+    el = document.createElement("video");
+    el.src = v.src; el.controls = true; el.autoplay = true; el.playsInline = true;
+    el.onerror = () => { const m = document.createElement("p"); m.className = "vmsg"; m.textContent = "Vídeo ainda não adicionado."; el.replaceWith(m); };
+  }
+  lbMedia.append(el); lbCap.textContent = v.t;
+  lightbox.hidden = false; document.body.style.overflow = "hidden";
+}
+function fechar() { lbMedia.innerHTML = ""; lightbox.hidden = true; document.body.style.overflow = ""; }
+lightbox.querySelector(".lb-close").onclick = fechar;
+lightbox.addEventListener("click", e => { if (e.target === lightbox) fechar(); });
+document.addEventListener("keydown", e => { if (!lightbox.hidden && e.key === "Escape") fechar(); });
+
+/* antes e depois */
+const bag = document.getElementById("edicoes");
+edicoes.forEach((x, n) => {
+  const f = document.createElement("figure");
+  f.className = "ba"; f.style.animationDelay = n * 60 + "ms";
+  f.innerHTML = `<div class="ba-box"><img class="b" alt="Antes: ${x.t}" src="${x.antes}"><img class="a" alt="Depois: ${x.t}" src="${x.depois}">
+    <span class="ba-lab l">Antes</span><span class="ba-lab r">Depois</span><div class="ba-line"></div>
+    <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois"></div>
+    <figcaption><strong></strong> · <span></span></figcaption>`;
+  f.querySelector("strong").textContent = x.t; f.querySelector("figcaption span").textContent = x.d;
+  f.querySelectorAll("img").forEach(i => i.onerror = () => i.remove());
+  const box = f.querySelector(".ba-box");
+  f.querySelector("input").addEventListener("input", e => box.style.setProperty("--p", e.target.value + "%"));
+  bag.append(f);
+});
+</script>
+</body>
+</html>
