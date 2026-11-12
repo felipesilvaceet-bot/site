@@ -119,3 +119,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem;border
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* cards clicáveis (Vídeo & edição e UX/UI & web) */
+.card-link{display:block}
+.card-link .card{height:100%}
